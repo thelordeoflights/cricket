@@ -11,12 +11,14 @@ public class CameraSwitch : MonoBehaviour
     {
         gameManager.readyButton.SetActive(false);
         playableDirector1.Play();
-        playableDirector1.played += OnTimeLineStart;
+        playableDirector1.stopped += OnTimeLineStart;
     }
 
     void OnTimeLineStart(PlayableDirector playableDirector)
     {
         gameManager.shootButtons.SetActive(true);
+        gameManager.ball.SetActive(true);
+        gameManager.SpawnBall();
     }
     // Start is called before the first frame update
     void Start()
