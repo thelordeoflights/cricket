@@ -20,15 +20,5 @@ public class CameraSwitch : MonoBehaviour
         gameManager.ball.SetActive(true);
         gameManager.SpawnBall();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
