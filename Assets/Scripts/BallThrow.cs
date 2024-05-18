@@ -4,10 +4,9 @@ public class BallThrow : MonoBehaviour
 {
     public Rigidbody rigidBody;
     float throwforce;
-    float fudgeFactor = 25;
     [SerializeField] Transform target;
     public float curveStrength = 600f;
-    Vector3 lateralDirection;
+    float direction = 1;
     bool checkCurve = false;
 
     void Start()
@@ -18,20 +17,34 @@ public class BallThrow : MonoBehaviour
     void Update()
     {
         throwforce = Random.Range(350, 500);
-        fudgeFactor = Random.Range(-fudgeFactor, fudgeFactor);
         if (Input.GetKeyDown(KeyCode.F))
         {
             rigidBody.useGravity = true;
             rigidBody.AddForce(Vector3.forward * throwforce, ForceMode.Acceleration);
+            rigidBody.AddTorque(Vector3.right * direction * throwforce);
             checkCurve = true;
         }
+    }
+    public void setDirection(float value)
+    {
+        direction = value;
     }
     void FixedUpdate()
     {
         if (checkCurve)
         {
-            Curve();
+            MagnusEffect();
+            //    Curve();
         }
+    }
+    void MagnusEffect()
+    {
+        float radius = transform.localScale.x;
+        float airDensity = Random.Range(100, 200);
+
+        var direction = rigidBody.angularVelocity;
+        var magnitude = 4 / 3 * Mathf.PI * airDensity * Mathf.Pow(radius, 3);
+        rigidBody.AddForce(direction * magnitude);
     }
     void Curve()
     {

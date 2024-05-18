@@ -9,8 +9,11 @@ public class GameManager : MonoBehaviour
     public GameObject shootButtons;
     public GameObject ball;
     public GameObject ballSpawn;
+    public GameObject currentBall;
     public ParticleSystem leftparticle;
     public ParticleSystem rightparticle;
+
+    float swingDirection = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,21 +21,36 @@ public class GameManager : MonoBehaviour
         rightparticle.Stop();
         shootButtons.SetActive(false);
     }
+    void SetBallDirection()
+    {
+        if (currentBall != null)
+        {
+            currentBall.GetComponent<BallThrow>().setDirection(swingDirection);
+        }
+    }
+    public void noSwing()
+    {
+        swingDirection = 0;
+        SetBallDirection();
+    }
     public void playLeft()
     {
         leftparticle.Play();
+        swingDirection = -1;
+        SetBallDirection();
+
     }
     public void playRight()
     {
         rightparticle.Play();
+        swingDirection = 1;
+        SetBallDirection();
+
     }
     public void SpawnBall()
     {
-        Instantiate(ball, ballSpawn.transform.position, Quaternion.identity);
+        currentBall = Instantiate(ball, ballSpawn.transform.position, Quaternion.identity);
+        SetBallDirection();
     }
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
 }
