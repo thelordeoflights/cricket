@@ -37,7 +37,7 @@ public class BallThrow : MonoBehaviour
     {
 
 
-        float maxForce = 5f;
+        float maxForce = Random.Range(-5, 5);
 
         var diffPositionX = target.position.x - transform.position.x;
 
