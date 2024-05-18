@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject currentBall;
     public ParticleSystem leftparticle;
     public ParticleSystem rightparticle;
+    public ParticleSystem frontparticle;
 
     float swingDirection = 0;
     // Start is called before the first frame update
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
     {
         leftparticle.Stop();
         rightparticle.Stop();
+        frontparticle.Stop();
         shootButtons.SetActive(false);
     }
     void SetBallDirection()
@@ -30,6 +32,7 @@ public class GameManager : MonoBehaviour
     }
     public void noSwing()
     {
+        frontparticle.Play();
         swingDirection = 0;
         SetBallDirection();
     }
